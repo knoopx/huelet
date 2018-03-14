@@ -1,5 +1,7 @@
 @keyframes spinner-wave {
-  0%, 40%, 100% {
+  0%,
+  40%,
+  100% {
     transform: scaleY(0.4);
   }
   20% {

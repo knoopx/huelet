@@ -3,9 +3,7 @@ const electron = require('electron')
 const menubar = require('menubar')
 const defaultMenu = require('electron-default-menu')
 
-const {
-  app, shell, Menu,
-} = electron
+const { app, shell, Menu } = electron
 
 if (process.env.NODE_ENV === 'development') {
   const webpack = require('webpack')
@@ -13,7 +11,10 @@ if (process.env.NODE_ENV === 'development') {
   const config = require(path.resolve('./webpack.config.js'))
 
   config.output.publicPath = 'http://localhost:8080/'
-  config.entry.unshift('react-hot-loader/patch', 'webpack-dev-server/client?http://localhost:8080/', 'webpack/hot/dev-server')
+  config.entry.unshift(
+    'webpack-dev-server/client?http://localhost:8080/',
+    'webpack/hot/dev-server',
+  )
   config.plugins.unshift(new webpack.HotModuleReplacementPlugin())
 
   const compiler = webpack(config)

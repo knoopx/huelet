@@ -10,13 +10,11 @@
     ["transform-es2015-classes", { "loose": true }],
     "transform-react-inline-elements",
     "transform-react-constant-elements",
-    "closure-elimination",
+    "closure-elimination"
   ],
   "env": {
     "development": {
-      "plugins": [
-        "react-hot-loader/babel"
-      ]
+      "plugins": ["react-hot-loader/babel"]
     },
     "production": {
       "plugins": ["transform-react-remove-prop-types"]

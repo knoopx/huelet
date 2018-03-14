@@ -21,7 +21,10 @@ function controllable(target) {
           on, brightness, hue, colorTemp,
         } = self
         return {
-          on, brightness, hue, colorTemp,
+          on,
+          brightness,
+          hue,
+          colorTemp,
         }
       },
       async reference() {
@@ -43,7 +46,9 @@ function controllable(target) {
           }))
         },
         beforeDestroy() {
-          disposables.forEach((dispose) => { dispose() })
+          disposables.forEach((dispose) => {
+            dispose()
+          })
         },
         update(props) {
           Object.assign(self, props)
@@ -93,11 +98,12 @@ const Group = controllable(types.model('Group', {
   },
 }))
 
-export default types.model('Store', {
-  connection: types.maybe(Connection),
-  lights: types.optional(types.array(Light), []),
-  groups: types.optional(types.array(Group), []),
-})
+export default types
+  .model('Store', {
+    connection: types.maybe(Connection),
+    lights: types.optional(types.array(Light), []),
+    groups: types.optional(types.array(Group), []),
+  })
   .preProcessSnapshot(({ lights, groups, ...snapshot }) => ({
     ...snapshot,
   }))
@@ -135,7 +141,9 @@ export default types.model('Store', {
         self.query()
       } catch (error) {
         if (error instanceof huejay.Error && error.type === 101) {
-          setTimeout(() => { self.connect(host) }, 2000)
+          setTimeout(() => {
+            self.connect(host)
+          }, 2000)
         }
         throw error
       }
@@ -145,15 +153,40 @@ export default types.model('Store', {
       isQuering = true
       const lights = await self.client.lights.getAll()
       self.setLights(lights.map(({
-        id, name, on, reachable, brightness, hue, colorTemp, manufacturer, modelId, softwareVersion, type,
+        id,
+        name,
+        on,
+        reachable,
+        brightness,
+        hue,
+        colorTemp,
+        manufacturer,
+        modelId,
+        softwareVersion,
+        type,
       }) => ({
-        id, name, on, reachable, brightness, hue, colorTemp, manufacturer, modelId, softwareVersion, type,
+        id,
+        name,
+        on,
+        reachable,
+        brightness,
+        hue,
+        colorTemp,
+        manufacturer,
+        modelId,
+        softwareVersion,
+        type,
       })))
       const groups = await self.client.groups.getAll()
       self.setGroups(groups.map(({
         id, name, on, brightness, lightIds, type,
       }) => ({
-        id, name, on, brightness, lights: lightIds, type,
+        id,
+        name,
+        on,
+        brightness,
+        lights: lightIds,
+        type,
       })))
       isQuering = false
     },
