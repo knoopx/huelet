@@ -25,9 +25,6 @@ if (process.env.NODE_ENV === 'development') {
 app.on('ready', () => {
   Menu.setApplicationMenu(Menu.buildFromTemplate(defaultMenu(app, shell)))
 
-  const { screen } = electron
-  const { height } = screen.getPrimaryDisplay().workAreaSize
-
   let index = `file://${__dirname}/dist/renderer.html`
   if (process.env.NODE_ENV === 'development') {
     index = 'http://localhost:8080/renderer.html'
@@ -35,7 +32,7 @@ app.on('ready', () => {
   const mb = menubar({
     index,
     transparent: true,
-    width: 320,
+    width: 340,
     height: 340,
     preloadWindow: true,
   })

@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { useStrict } from 'mobx'
 import { Provider } from 'mobx-react'
 import { AppContainer } from 'react-hot-loader'
 import { onSnapshot } from 'mobx-state-tree'
@@ -10,8 +9,6 @@ import App from './app'
 import Store from './store'
 
 const store = Store.create(localStorage.store ? JSON.parse(localStorage.store) : {})
-
-useStrict(true)
 
 ReactDOM.render(
   <AppContainer>

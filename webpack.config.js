@@ -9,12 +9,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 module.exports = {
   target: 'electron-renderer',
   mode: process.env.NODE_ENV,
-  entry: [
-    'source-map-support/register',
-    'tachyons/css/tachyons.css',
-    './src/index.css',
-    './src/index.jsx',
-  ],
+  entry: ['source-map-support/register', './src/index.css', './src/index.jsx'],
   plugins: [
     new webpack.ExternalsPlugin('commonjs', Object.keys(dependencies)),
     new ExtractTextPlugin({
@@ -38,11 +33,15 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css/,
+        test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader',
+          use: [
+            { loader: 'css-loader', options: { importLoaders: 1 } },
+            'postcss-loader',
+          ],
         }),
+        include: [path.resolve(__dirname, 'src')],
       },
       {
         test: /\.jsx?$/,
